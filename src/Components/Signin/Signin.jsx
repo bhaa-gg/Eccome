@@ -14,12 +14,13 @@ export default function Signup() {
     function check(values) {
         setLoad(true)
         axios.post("https://ecommerce.routemisr.com/api/v1/auth/signin", values).then(({ data }) => {
+            let useress = data.user;
             if (data.message == "success") {
                 console.log(data);
                 localStorage.setItem("token", data.token)
+                localStorage.setItem("user", JSON.stringify(useress))
                 go('/Home')
             }
-            console.log(data);
         }).catch(err => {
             console.log(err);
             setMessages(err.response.data.message)
@@ -38,7 +39,7 @@ export default function Signup() {
     function validationSchema() {
         let sechma = new Yuo.object({
             email: Yuo.string().email().required("Email is Requiredss"),
-            password: Yuo.string().matches(/^[A-Z][A-Za-z0-9]{6,}$/, "password must be matches").required(),
+            password: Yuo.string().matches(/^[A-Z][A-Za-z0-9!@#$%^&*]{6,}$/, "password must be matches Like => {Name123456}").required(),
 
         })
         return sechma;

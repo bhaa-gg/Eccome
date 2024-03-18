@@ -6,7 +6,7 @@ export default function HomeSlider({ dataCatgorie }) {
         dots: true,
         infinite: true,
         speed: 500,
-        slidesToShow: 7,
+        slidesToShow: 5,
         slidesToScroll: 1,
         arrows: false,
         autoplay  :true,

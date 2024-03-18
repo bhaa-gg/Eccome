@@ -1,11 +1,15 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Product from '../Product/Product';
 import Loading from '../Loading/Loading';
 import { useQuery } from 'react-query';
 import { conText } from '../Context/Context';
 import { Helmet } from 'react-helmet';
+import Pagenination from '../Pagenination/Pagenination';
 
 export default function Products() {
+    const [currentPage, setCurrentPage] = useState(1)
+    const [currentPerPage, setCurrentPerPage] = useState(8)
+
     let { getData, getUserWishlist, setDataWList } = useContext(conText)
     let { data, isLoading } = useQuery("getData", getData)
 
@@ -20,15 +24,25 @@ export default function Products() {
     useEffect(() => {
         getUWList()
     }, [])
+
+
+
+    const lastPostPage = currentPage * currentPerPage;
+    const firstPostPage = lastPostPage - currentPerPage;
+    const curnet = data?.data.data.slice(firstPostPage, lastPostPage);
     if (isLoading) return <Loading />
     return (
         <>
             <Helmet title={"Products"} />
-            <div className='container py-2 my-2 '>
+            <div className='container  py-2 my-2 '>
                 <div className="row row-gap-3 py-4">
-                    {data?.data.data.map((val => {
+                    {curnet.map((val => {
                         return <Product key={val._id} items={val} />
                     }))}
+                </div>
+                <div className=" fitConte m-auto ">
+
+                    <Pagenination tP={data?.data.data.length} currentPage={currentPage} setCurrentPage={setCurrentPage} currentPerPage={currentPerPage} />
                 </div>
             </div>
         </>

@@ -94,8 +94,9 @@ export default function Context({ children }) {
     const [counterWList, setCounterWList] = useState(0);
     const [dataWList, setDataWList] = useState([]);
     const [idW, setIdW] = useState([]);
+    const [idCart, setIdCart] = useState([]);
     return (
-        <conText.Provider value={{offli, getData, setOffli , idW, setIdW, getCategory, dataWList, deletsWhichList, setDataWList, addWhichList, counterWList, setCounterWList, getUserWishlist, counter, setCounter, addToCart, ShowDataCart, ubdte, delets, pay, getUserOrders }}>
+        <conText.Provider value={{idCart, setIdCart , offli, getData, setOffli , idW, setIdW, getCategory, dataWList, deletsWhichList, setDataWList, addWhichList, counterWList, setCounterWList, getUserWishlist, counter, setCounter, addToCart, ShowDataCart, ubdte, delets, pay, getUserOrders }}>
             {children}
         </conText.Provider>
     )

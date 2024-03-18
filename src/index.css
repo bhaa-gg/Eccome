@@ -78,6 +78,7 @@ nav a.active {
   color: white !important;
   font-weight: bold;
 }
+
 nav a:hover {
   background-color: var(--main-color) !important;
   ;
@@ -93,9 +94,10 @@ nav a:hover {
   font-family: monospace;
   line-height: 1.4;
   font-weight: bold;
+  color: var(--main-color);
   background:
-    linear-gradient(#000 0 0) left,
-    linear-gradient(#000 0 0) right;
+    linear-gradient(var(--main-color) 0 0) left,
+    linear-gradient(var(--main-color) 0 0) right;
   background-repeat: no-repeat;
   border-right: 5px solid #0000;
   border-left: 5px solid #0000;
@@ -117,7 +119,7 @@ nav a:hover {
   height: 60px;
   background:
     linear-gradient(90deg, #000 4px, #0000 0 calc(100% - 4px), #000 0) bottom /22px 20px,
-    linear-gradient(90deg, red 4px, #0000 0 calc(100% - 4px), red 0) bottom 10px left 0/22px 6px,
+    linear-gradient(90deg, var(--main-color) 4px, #0000 0 calc(100% - 4px), var(--main-color) 0) bottom 10px left 0/22px 6px,
     linear-gradient(#000 0 0) bottom 3px left 0 /22px 8px,
     linear-gradient(#000 0 0) bottom 0 left 50%/8px 16px;
   background-repeat: no-repeat;
@@ -189,4 +191,25 @@ nav a:hover {
 
 .btnWhichList:hover {
   filter: drop-shadow(5px 2px 2px var(--main-color));
+}
+
+
+
+.loadnigs {
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.07);
+}
+.col-md-3.bhaaa {
+}
+
+@media (max-width :700px) {
+  .col-md-3.bhaaa {
+    padding:  50px;
+  }
+  
+}
+
+
+.fitConte{
+  width: fit-content !important;
 }

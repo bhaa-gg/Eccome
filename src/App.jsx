@@ -21,6 +21,7 @@ import ForgetPassword from './Components/ForgetPassword/ForgetPassword'
 import ResetPass from './Components/ResetPass/ResetPass'
 import AuthProtect from './Components/AuthProtect/AuthProtect'
 import { Offline } from 'react-detect-offline'
+import User from './Components/User/User'
 export default function App() {
   let routers = createHashRouter([
     {
@@ -43,6 +44,7 @@ export default function App() {
         { path: 'Categories', element: <Protect><Categories /></Protect> },
         { path: 'Brands', element: <Protect><Brands /></Protect> },
         { path: 'WhichList', element: <Protect><WhichList /></Protect> },
+        { path: 'User', element: <Protect><User /></Protect> },
         { path: 'allorders', element: <Protect><Allorders /></Protect> },
         { path: 'Order/:id', element: <Protect><Order /></Protect> },
         { path: 'ProductDetails/:id', element: <Protect><ProductDetails /></Protect> },

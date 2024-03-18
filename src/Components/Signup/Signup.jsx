@@ -38,7 +38,7 @@ export default function Signup() {
         let sechma = new Yuo.object({
             name: Yuo.string().min(5).max(10).required(),
             email: Yuo.string().email().required("Email is Requiredss"),
-            password: Yuo.string().matches(/^[A-Z][A-Za-z0-9]{6,}$/, "password must be matches").required(),
+            password: Yuo.string().matches(/^[A-Z][A-Za-z0-9!@#$%^&*]{6,}$/, "password must be matches Like => {Name123456}").required(),
             rePassword: Yuo.string().oneOf([Yuo.ref("password")], "Password and repassword Not Match").required(),
 
         })
@@ -75,7 +75,7 @@ export default function Signup() {
                     {register.errors.email && register.touched.email ? <div className="alert alert-danger">{register.errors.email}</div> : ""}
 
                     <label htmlFor="password" >Password</label>
-                    <div className="in  rounded-pill d-flex  justify-content-between align-items-center ">
+                    <div className="in  rounded-pill d-flex   justify-content-between align-items-center ">
                         <input onChange={register.handleChange} placeholder='Password...' onBlur={register.handleBlur} type={inputType} id='password' name='password' className={`   form-control ${register.errors.password && register.touched.password ? "is-invalid" : ""}  `} />
                         <i onClick={topass} className='fa-solid ms-2 cursor-pointer fs-5 fa-eye ' ></i>
                     </div>

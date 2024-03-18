@@ -32,14 +32,12 @@ export default function Home() {
     async function getCatgories() {
         setLoading(true)
         let data = await getCategory();
-        console.log("getCatgories", data);
         setDataCatgorie(data);
         setLoading(false)
     }
 
     async function getUWList() {
         let data = await getUserWishlist();
-        console.log("frm pro", data);
         if (data.status == "success") {
             setDataWList(data.data)
         }

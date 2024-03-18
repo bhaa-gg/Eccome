@@ -4,12 +4,32 @@ import Loading from '../Loading/Loading';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import axios from 'axios';
 
 export default function Cart() {
-    let { counter, setCounter, ShowDataCart, ubdte, delets } = useContext(conText);
+    let { counter,  setIdCart,setCounter, ShowDataCart, ubdte, delets } = useContext(conText);
     const [loading, setLoading] = useState(false);
     const [btnLoading, setBtnLoading] = useState(false);
     const [data, setData] = useState(null);
+
+
+    function clearCart() {
+        axios.delete("https://ecommerce.routemisr.com/api/v1/cart" , {
+            headers :{
+                token : localStorage.getItem("token"),
+            }
+        }).then(({data})=>{
+            console.log(data);
+            if (data.message == "success") {
+                toast.success("Clear your cart successfully ")
+                setData(null);
+                setCounter(0);
+                setIdCart([])
+            }
+        }).catch((error)=>{
+            console.log(error);
+        })
+    }
 
 
     useEffect(() => {
@@ -49,13 +69,13 @@ export default function Cart() {
 
     if (loading) return <Loading />;
     return (
-        
+
         <div className='container my-3 bg-main-light p-3 rounded-4 '>
             <Helmet title={"User Cart"} />
             <h1 className='text-main fw-bold py-2' >  Shop Cart :</h1>
-            
-            {counter ?  <h6 className='text-success fw-bold' >Total Price : {data?.data?.totalCartPrice}</h6> : ""}
-            {!counter ?  <h1 className='text-main text-center fw-bold py-2' >  No Element In Cart </h1> : ""}
+
+            {counter ? <h6 className='text-success fw-bold' >Total Price : {data?.data?.totalCartPrice}</h6> : ""}
+            {!counter ? <h1 className='text-main text-center fw-bold py-2' >  No Element In Cart </h1> : ""}
             {data?.data?.products.map((val) => {
                 return <div key={val._id} className="row my-2  p-2 bg-body-secondary">
                     <div className='col-md-2'><img src={val.product.imageCover} className='w-100' alt="" /></div>
@@ -73,7 +93,8 @@ export default function Cart() {
                     </div>
                 </div>
             })}
-            <Link  to={`/Order/${data?.data?._id}`} className={`btn bg-main text-white fw-bold  p-3 ${data?.numOfCartItems == 0 ? "disabled" : ""} ${!counter ? "d-none" : ""}`} >Order</Link>
+            <Link to={`/Order/${data?.data?._id}`} className={`btn bg-main text-white fw-bold  p-3 ${data?.numOfCartItems == 0 ? "disabled" : ""} ${!counter ? "d-none" : ""}`} >Order</Link>
+            <button onClick={clearCart} className={`btn bg-main text-white fw-bold ms-5  p-3  ${!counter ? "d-none" : ""}`} >Clear Cart</button>
         </div>
     )
 }
