@@ -60,10 +60,10 @@ export default function Product({ items }) {
     return (
         <>
             <div className="col-md-3 bhaaa ">
-                <div className='card rounded-2 cursor-pointer cards product p-2'>
+                <div aria-hidden="true" className='card rounded-2 cursor-pointer cards product p-2'>
                     <Link to={"/ProductDetails/" + items._id} >
                         <img className='w-100 card-img' loading='lazy' src={items.imageCover} alt="" />
-                        <h6 className='text-main' >{items.category.name}</h6>
+                        <h6 className='text-main my-2' >{items.category.name}</h6>
                         <h5 className='' >{items.title.split(" ").slice(0, 2).join(" ")}</h5>
                         <div className='d-flex justify-content-between py-2'>
                             <span>{items.price}EGB</span>

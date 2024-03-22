@@ -66,9 +66,9 @@ a:hover {
 }
 
 .cards:hover {
-  box-shadow: -2px 1px 20px 15px var(--main-color);
-  -webkit-box-shadow: -2px 1px 20px 10px var(--main-color);
-  -moz-box-shadow: -2px 1px 20px 10px var(--main-color);
+  box-shadow: -2px 1px 15px 15px var(--main-color);
+  -webkit-box-shadow: -2px 1px 15px 10px var(--main-color);
+  -moz-box-shadow: -2px 1px 15px 10px var(--main-color);
 }
 
 nav a.active {
@@ -212,4 +212,25 @@ nav a:hover {
 
 .fitConte{
   width: fit-content !important;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: black;
+  border-radius: 20px;
+
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--main-color);
+  border-radius: 20px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(255, 0, 0);
 }

@@ -5,6 +5,8 @@ import { useQuery } from 'react-query';
 import { conText } from '../Context/Context';
 import { Helmet } from 'react-helmet';
 import Pagenination from '../Pagenination/Pagenination';
+import Loader from '../Loader/Loader';
+import { toast } from 'react-toastify';
 
 export default function Products() {
     const [currentPage, setCurrentPage] = useState(1)
@@ -29,22 +31,27 @@ export default function Products() {
 
     const lastPostPage = currentPage * currentPerPage;
     const firstPostPage = lastPostPage - currentPerPage;
-    const curnet = data?.data.data.slice(firstPostPage, lastPostPage);
+    const curnet = data?.data?.data.slice(firstPostPage, lastPostPage);
     if (isLoading) return <Loading />
-    return (
-        <>
-            <Helmet title={"Products"} />
-            <div className='container  py-2 my-2 '>
-                <div className="row row-gap-3 py-4">
-                    {curnet.map((val => {
-                        return <Product key={val._id} items={val} />
-                    }))}
+    try {
+        return (
+            <>
+                <Helmet title={"Products"} />
+                <div className='container  py-2 my-2 '>
+                    <div className="row row-gap-3 py-4">
+                        {curnet?.map((val => {
+                            return isLoading ? <Loader /> : <Product key={val._id} items={val} isLoading={isLoading} />
+                            // return <Loader />
+                        }))}
+                    </div>
+                    <div className=" fitConte m-auto ">
+    
+                        <Pagenination tP={data?.data.data.length} currentPage={currentPage} setCurrentPage={setCurrentPage} currentPerPage={currentPerPage} />
+                    </div>
                 </div>
-                <div className=" fitConte m-auto ">
-
-                    <Pagenination tP={data?.data.data.length} currentPage={currentPage} setCurrentPage={setCurrentPage} currentPerPage={currentPerPage} />
-                </div>
-            </div>
-        </>
-    )
+            </>
+        )
+    } catch (error) {
+        toast.error("Check your Network")
+    }
 }

@@ -67,23 +67,23 @@ export default function Signup() {
                 <h1 className='my-3' >Register Now:</h1>
                 <form onSubmit={register.handleSubmit}>
                     <label htmlFor="Name" >Name</label>
-                    <input onBlur={register.handleBlur} onChange={register.handleChange} placeholder='Name...' type="text" id='name' name='name' className={` mb-4 form-control ${register.errors.name && register.touched.name ? "is-invalid" : ""} `} />
+                    <input onClick={()=>setMessages("")} onBlur={register.handleBlur} onChange={register.handleChange} placeholder='Name...' type="text" id='name' name='name' className={` mb-4 form-control ${register.errors.name && register.touched.name ? "is-invalid" : ""} `} />
                     {register.errors.name && register.touched.name ? <div className='valis alert alert-danger mt-2' >{register.errors.name}</div> : ''}
 
                     <label htmlFor="email" >Email</label>
-                    <input onChange={register.handleChange} placeholder='Email...' onBlur={register.handleBlur} type="email" id='email' name='email' className={`  mb-4 form-control ${register.errors.email && register.touched.email ? "is-invalid" : ""}  `} />
+                    <input onClick={()=>setMessages("")} onChange={register.handleChange} placeholder='Email...' onBlur={register.handleBlur} type="email" id='email' name='email' className={`  mb-4 form-control ${register.errors.email && register.touched.email ? "is-invalid" : ""}  `} />
                     {register.errors.email && register.touched.email ? <div className="alert alert-danger">{register.errors.email}</div> : ""}
 
                     <label htmlFor="password" >Password</label>
                     <div className="in  rounded-pill d-flex   justify-content-between align-items-center ">
-                        <input onChange={register.handleChange} placeholder='Password...' onBlur={register.handleBlur} type={inputType} id='password' name='password' className={`   form-control ${register.errors.password && register.touched.password ? "is-invalid" : ""}  `} />
+                        <input onClick={()=>setMessages("")} onChange={register.handleChange} placeholder='Password...' onBlur={register.handleBlur} type={inputType} id='password' name='password' className={`   form-control ${register.errors.password && register.touched.password ? "is-invalid" : ""}  `} />
                         <i onClick={topass} className='fa-solid ms-2 cursor-pointer fs-5 fa-eye ' ></i>
                     </div>
                     {register.errors.password && register.touched.password ? <div className="alert alert-danger">{register.errors.password}</div> : ""}
 
                     <label className='mt-4' htmlFor="rePassword" >rePassword</label>
                     <div className="in  rounded-pill d-flex  justify-content-between align-items-center ">
-                        <input onChange={register.handleChange} placeholder='rePassword...' onBlur={register.handleBlur} type={inputType} id='rePassword' name='rePassword' className={`   form-control ${register.errors.rePassword && register.touched.rePassword ? "is-invalid" : ""}  `} />
+                        <input onClick={()=>setMessages("")} onChange={register.handleChange} placeholder='rePassword...' onBlur={register.handleBlur} type={inputType} id='rePassword' name='rePassword' className={`   form-control ${register.errors.rePassword && register.touched.rePassword ? "is-invalid" : ""}  `} />
                         <i onClick={topass} className='fa-solid ms-2 cursor-pointer fs-5 fa-eye ' ></i>
                     </div>
                     {register.errors.rePassword && register.touched.rePassword ? <div className="alert alert-danger">{register.errors.rePassword}</div> : ""}

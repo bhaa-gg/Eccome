@@ -13,22 +13,31 @@ export default function AdminLayout() {
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon" />
                     </button>
+                    <div className="collapse navbar-collapse " id="navbarSupportedContent">
+                        <ul className="navbar-nav  mb-lg-0">
+                            <li className="nav-item ">
+                                <NavLink className=" w-100 nav-link btn " to="Start">
+                                    Start
+                                </NavLink>
+                            </li>
+                        </ul>
+                        <ul className="navbar-nav ms-auto mb-2 gap-3 ms-auto mb-lg-0">
 
-                    <ul className="navbar-nav ms-auto mb-2 gap-3 ms-auto mb-lg-0">
-                        <li className="nav-item">
-                            <NavLink className=" nav-link btn   position-relative" to="Signup">
-                                Signup
-                            </NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink className=" nav-link btn   position-relative" to="Signin">
-                                Signin
-                            </NavLink>
-                        </li>
-                    </ul>
+                            <li className="nav-item">
+                                <NavLink className=" nav-link btn " to="Signup">
+                                    Signup
+                                </NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink className=" nav-link btn " to="Signin">
+                                    Signin
+                                </NavLink>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </nav>
-            <Outlet/>
+            <Outlet />
         </>
     )
 }

@@ -11,6 +11,7 @@ export default function Signup() {
     let [messages, setMessages] = useState("")
     let go = useNavigate()
 
+    
     function check(values) {
         setLoad(true)
         axios.post("https://ecommerce.routemisr.com/api/v1/auth/signin", values).then(({ data }) => {
@@ -55,6 +56,7 @@ export default function Signup() {
             check(val);
         }
     })
+    
 
     return (
         <div>
@@ -65,20 +67,22 @@ export default function Signup() {
                 <form onSubmit={register.handleSubmit}>
 
                     <label htmlFor="email" >Email</label>
-                    <input onChange={register.handleChange} placeholder='Email...' onBlur={register.handleBlur} type="email" id='email' name='email' className={` mb-4  form-control ${register.errors.email && register.touched.email ? "is-invalid" : ""}  `} />
+                    <input  onClick={()=>setMessages("")} onChange={register.handleChange} placeholder='Email...' onBlur={register.handleBlur} type="email" id='email' name='email' className={` mb-4  form-control ${register.errors.email && register.touched.email ? "is-invalid" : ""}  `} />
                     {register.errors.email && register.touched.email ? <div className="alert alert-danger">{register.errors.email}</div> : ""}
 
                     <label htmlFor="password" >Password</label>
                     <div className="in  rounded-pill d-flex  justify-content-between align-items-center ">
-                        <input onChange={register.handleChange} placeholder='Password...' onBlur={register.handleBlur} type={inputType} id='password' name='password' className={`  form-control ${register.errors.password && register.touched.password ? "is-invalid" : ""}  `} />
+                        <input  onClick={()=>setMessages("")} onChange={register.handleChange} placeholder='Password...' onBlur={register.handleBlur} type={inputType} id='password' name='password' className={`  form-control ${register.errors.password && register.touched.password ? "is-invalid" : ""}  `} />
                         <i onClick={topass} className='fa-solid ms-2 cursor-pointer fs-5 fa-eye ' ></i>
                     </div>
                     {register.errors.password && register.touched.password ? <div className="alert alert-danger">{register.errors.password}</div> : ""}
 
 
                     {messages ? <div className="alert alert-danger">{messages}</div> : ""}
+                    <div className="btns  d-flex px-2 justify-content-between">
                     <button disabled={!(register.dirty && register.isValid)} type="submit" className='btn bg-main text-white my-3 fw-bold'>{load ? <i className='fa fa-spinner fa-spin' ></i> : "Supmit"}</button>
-                    <Link to={"/ForgetPassword"} type="submit" className='btn btn-dark text-white ms-5 my-3 fw-bold'>Forget Password</Link>
+                    <Link to={"/ForgetPassword"} type="submit" className='btn   my-3 fw-bold'>Forget Password ?</Link>
+                    </div>
                 </form>
             </div>
         </div>

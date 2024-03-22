@@ -5,7 +5,7 @@ import Loading from '../Loading/Loading';
 import { Helmet } from 'react-helmet';
 
 export default function WhichList() {
-    let { counterWList , setIdW, getUserWishlist, setCounter, deletsWhichList, addToCart, setCounterWList } = useContext(conText);
+    let { counterWList , setIdCart ,setIdW, getUserWishlist, setCounter, deletsWhichList, addToCart, setCounterWList } = useContext(conText);
     let [data, setData] = useState([])
     const [loading, setLoading] = useState(false);
     const [loadingBtn, setLoadingBtn] = useState(false);
@@ -16,6 +16,8 @@ export default function WhichList() {
         if (data.status == "success") {
             setData(data?.data);
             setCounterWList(data?.count);
+            setIdCart(data?.data.map(val=>val._id))
+
         }
         setLoading(false);
     }
@@ -46,29 +48,33 @@ export default function WhichList() {
         }
     }
     if (loading) return <Loading />
-    return (
-        <div className='container my-3 bg-main-light p-3 rounded-4 '>
-                        <Helmet title={"Which List"} />
-
-            <h1 className='text-main fw-bold py-2' > My Which List :</h1>
-            { counterWList?  ""  : <h1  className='text-main text-center fw-bold py-2' > No Which List </h1> }
-
-            {data.map((val) => {
-                return <div key={val._id} className="row my-2  border-bottom border-black p-2 bg-body-secondary">
-                    <div className='col-md-2'><img src={val?.imageCover} className='w-100' alt="" /></div>
-                    <div className="col-md-10   d-flex justify-content-between align-items-center">
-                        <div className="detales w-75">
-                            <h3 className=' fw-bold'>{val?.title}</h3>
-                            <h6 className='text-success my-3 fw-bold'>Price : {val.price}</h6>
-                            <button onClick={() => removes(val._id)} className='btn text-success  fw-bold ' >Delet Item <i className="fa-regular  fa-trash-can"></i></button>
-                        </div>
-                        <div className="quantity w-25  ">
-                            <button disabled={loadingBtn} onClick={() => addCart(val._id)} className='btn w-100  me-auto rounded-2 border-black border-2 fw-bold' >{loadingBtn ? <i className="fa-solid fa-cog fa-spin fa-spin-reverse"></i> : "Add To Cart !"}</button>
+    try {
+        return (
+            <div className='container my-3 bg-main-light p-3 rounded-4 '>
+                            <Helmet title={"Which List"} />
+    
+                <h1 className='text-main fw-bold py-2' > My Which List :</h1>
+                { counterWList?  ""  : <h1  className='text-main text-center fw-bold py-2' > No Elements Which List </h1> }
+    
+                {data.map((val) => {
+                    return <div key={val._id} className="row my-2  border-bottom border-black p-2 bg-body-secondary">
+                        <div className='col-md-2'><img src={val?.imageCover} className='w-100' alt="" /></div>
+                        <div className="col-md-10   d-flex justify-content-between align-items-center">
+                            <div className="detales w-75">
+                                <h3 className=' fw-bold'>{val?.title}</h3>
+                                <h6 className='text-success my-3 fw-bold'>Price : {val.price}</h6>
+                                <button onClick={() => removes(val._id)} className='btn text-success  fw-bold ' >Delet Item <i className="fa-regular  fa-trash-can"></i></button>
+                            </div>
+                            <div className="quantity w-25  ">
+                                <button disabled={loadingBtn} onClick={() => addCart(val._id)} className='btn w-100  me-auto rounded-2 border-black border-2 fw-bold' >{loadingBtn ? <i className="fa-solid fa-cog fa-spin fa-spin-reverse"></i> : "Add To Cart !"}</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            })}
-
-        </div>
-    )
+                })}
+    
+            </div>
+        )
+    } catch (error) {
+        toast.error("Check your Network")
+    }
 }

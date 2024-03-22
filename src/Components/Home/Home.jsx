@@ -12,6 +12,8 @@ import slide2 from '../../Assits/Imgs/images/slider-image-2.jpeg'
 import slide3 from '../../Assits/Imgs/images/slider-image-3.jpeg'
 import img1 from '../../Assits/Imgs/images/1678303526206-cover.jpeg'
 import img2 from '../../Assits/Imgs/images/1678305677165-cover.jpeg'
+import Loader from '../Loader/Loader';
+import { toast } from 'react-toastify';
 
 export default function Home() {
     let { getData, getCategory, dataWList, getUserWishlist, setDataWList } = useContext(conText)
@@ -24,7 +26,7 @@ export default function Home() {
         arrows: false,
         autoplay: true,
     };
-    let dataWListId = dataWList.map(val => val._id);
+    let dataWListId = dataWList?.map(val => val._id);
     let [dataCatgorie, setDataCatgorie] = useState(null)
     let [loading, setLoading] = useState(null)
     let { data, refetch } = useQuery("getData", getData)
@@ -46,34 +48,39 @@ export default function Home() {
         getUWList()
         getCatgories()
     }, [])
-    if (loading) return <Loading />
-    return (
-        <>
-            <Helmet title={"Home"} />
-            <div className='container  py-2 my-2 '>
-                <div className="head border p-2 rounded-2 d-flex align-items-center justify-content-between ">
-                    <div className="slider w-75">
-                        <Slider {...settings}>
-                            <img src={slide1} height={500} alt="" />
-                            <img src={slide2} height={500} alt="" />
-                            <img src={slide3} height={500} alt="" />
-                        </Slider>
+    // if (loading) return <Loading />
+    try {
+        return (
+            <>
+                <Helmet title={"Home"} />
+                <div className='container  py-2 my-2 '>
+                    <div className="head border p-2 rounded-2 d-flex align-items-center justify-content-between ">
+                        <div className="slider w-75">
+                            <Slider {...settings}>
+                                <img src={slide1} height={500} alt="" />
+                                <img src={slide2} height={500} alt="" />
+                                <img src={slide3} height={500} alt="" />
+                            </Slider>
+                        </div>
+                        <div className="imgs w-25">
+                            <img src={img1} className='w-100' height={300} alt="" />
+                            <img src={img2} className='w-100' height={300} alt="" />
+                        </div>
                     </div>
-                    <div className="imgs w-25">
-                        <img src={img1} className='w-100' height={300} alt="" />
-                        <img src={img2} className='w-100' height={300} alt="" />
+                    <div className="slide border p-2 rounded-2 my-4">
+                        <h3 className='py-2 fw-bold'>Show Popular Categories </h3>
+                        <HomeSlider dataCatgorie={dataCatgorie} />
+                    </div>
+                    <div className="row row-gap-3 py-4">
+                        {data?.data?.data?.map((val => {
+                            return loading ? <Loader key={val._id} /> : <Product dataWListId={[...dataWListId]} refetch={refetch} key={val._id} items={val} />
+                        }))}
                     </div>
                 </div>
-                <div className="slide border p-2 rounded-2 my-4">
-                    <h3 className='py-2 fw-bold'>Show Popular Categories </h3>
-                    <HomeSlider dataCatgorie={dataCatgorie} />
-                </div>
-                <div className="row row-gap-3 py-4">
-                    {data?.data.data.map((val => {
-                        return <Product dataWListId={[...dataWListId]} refetch={refetch} key={val._id} items={val} />
-                    }))}
-                </div>
-            </div>
-        </>
-    )
+            </>
+        )
+    } catch (error) {
+        console.log(error.message);
+        toast.error("Check your Network")
+    }
 }

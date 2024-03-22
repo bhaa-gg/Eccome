@@ -11,7 +11,7 @@ export default function ResetPass() {
 
     function RsePass(values) {
         setLoad(true)
-
+        
         axios.put("https://ecommerce.routemisr.com/api/v1/auth/resetPassword", values).then(({ data }) => {
             console.log(data);
             if (data.token) {
@@ -22,6 +22,8 @@ export default function ResetPass() {
             setMessages(err.response.data.message)
             console.log(err);
         })
+        
+        setLoad(false)
     }
 
 
@@ -51,11 +53,11 @@ export default function ResetPass() {
                 <form onSubmit={resetPassword.handleSubmit}>
 
                     <label htmlFor="email" >Email</label>
-                    <input onChange={resetPassword.handleChange} placeholder='Email...' onBlur={resetPassword.handleBlur} type="email" id='email' name='email' className={`  mb-4 form-control ${resetPassword.errors.email && resetPassword.touched.email ? "is-invalid" : ""}  `} />
+                    <input onClick={()=>setMessages("")} onChange={resetPassword.handleChange} placeholder='Email...' onBlur={resetPassword.handleBlur} type="email" id='email' name='email' className={`  mb-4 form-control ${resetPassword.errors.email && resetPassword.touched.email ? "is-invalid" : ""}  `} />
                     {resetPassword.errors.email && resetPassword.touched.email ? <div className="alert alert-danger">{resetPassword.errors.email}</div> : ""}
 
                     <label htmlFor="password" >New Password</label>
-                    <input onChange={resetPassword.handleChange} placeholder='New Password...' onBlur={resetPassword.handleBlur} type="password" id='password' name='newPassword' className={`  mb-4 form-control ${resetPassword.errors.newPassword && resetPassword.touched.newPassword ? "is-invalid" : ""}  `} />
+                    <input onClick={()=>setMessages("")} onChange={resetPassword.handleChange} placeholder='New Password...' onBlur={resetPassword.handleBlur} type="password" id='password' name='newPassword' className={`  mb-4 form-control ${resetPassword.errors.newPassword && resetPassword.touched.newPassword ? "is-invalid" : ""}  `} />
                     {resetPassword.errors.newPassword && resetPassword.touched.newPassword ? <div className="alert alert-danger">{resetPassword.errors.newPassword}</div> : ""}
 
                     {messages ? <div className="alert alert-danger">{messages}</div> : ""}

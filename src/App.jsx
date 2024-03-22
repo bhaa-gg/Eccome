@@ -22,13 +22,16 @@ import ResetPass from './Components/ResetPass/ResetPass'
 import AuthProtect from './Components/AuthProtect/AuthProtect'
 import { Offline } from 'react-detect-offline'
 import User from './Components/User/User'
+import Start from './Components/Start/Start'
+import OfflineDetector from './Components/OfflineDetector/OfflineDetector'
 export default function App() {
   let routers = createHashRouter([
     {
       path: '/', element: <AdminLayout />, children: [
-        { index: true, element: <AuthProtect><Signup /></AuthProtect> },
+        { index: true, element: <AuthProtect><Start /></AuthProtect> },
+        { path: 'Start', element: <AuthProtect><Start /></AuthProtect> },
         { path: 'Signup', element: <AuthProtect><Signup /></AuthProtect> },
-        { path: 'Signin', element: <Signin /> },
+        { path: 'Signin', element: <AuthProtect><Signin /></AuthProtect> },
         { path: 'ForgetPassword', element: <ForgetPassword /> },
         { path: 'ResetPass', element: <ResetPass /> },
         { path: '*', element: <NotFound /> },
@@ -37,17 +40,17 @@ export default function App() {
     },
     {
       path: '/', element: <UserLayout />, children: [
-        { index: true, element: <Protect> <Home /></Protect> },
-        { path: 'Home', element: <Protect> <Home /></Protect> },
-        { path: 'Cart', element: <Protect><Cart /></Protect> },
-        { path: 'Products', element: <Protect><Products /></Protect> },
-        { path: 'Categories', element: <Protect><Categories /></Protect> },
-        { path: 'Brands', element: <Protect><Brands /></Protect> },
-        { path: 'WhichList', element: <Protect><WhichList /></Protect> },
-        { path: 'User', element: <Protect><User /></Protect> },
-        { path: 'allorders', element: <Protect><Allorders /></Protect> },
-        { path: 'Order/:id', element: <Protect><Order /></Protect> },
-        { path: 'ProductDetails/:id', element: <Protect><ProductDetails /></Protect> },
+        { index: true, element: <Protect><OfflineDetector><Home /></OfflineDetector></Protect> },
+        { path: 'Home', element: <Protect><OfflineDetector><Home /></OfflineDetector></Protect> },
+        { path: 'Cart', element: <Protect><OfflineDetector><Cart /></OfflineDetector></Protect> },
+        { path: 'Products', element: <Protect><OfflineDetector><Products /></OfflineDetector></Protect> },
+        { path: 'Categories', element: <Protect><OfflineDetector><Categories /></OfflineDetector></Protect> },
+        { path: 'Brands', element: <Protect><OfflineDetector><Brands /></OfflineDetector></Protect> },
+        { path: 'WhichList', element: <Protect><OfflineDetector><WhichList /></OfflineDetector></Protect> },
+        { path: 'User', element: <Protect><OfflineDetector><User /></OfflineDetector></Protect> },
+        { path: 'allorders', element: <Protect><OfflineDetector><Allorders /></OfflineDetector></Protect> },
+        { path: 'Order/:id', element: <Protect><OfflineDetector><Order /></OfflineDetector></Protect> },
+        { path: 'ProductDetails/:id', element: <Protect><OfflineDetector><ProductDetails /></OfflineDetector></Protect> },
         { path: '*', element: <NotFound /> },
       ]
     },
@@ -61,7 +64,8 @@ export default function App() {
         <RouterProvider router={routers} />
       </Context>
       <Offline>
-      <div className="div alert-danger alert bottom-0 fw-bold   ms-4 position-fixed">No Internet Connection</div>
+
+        <div className="div alert-danger alert bottom-0 fw-bold   ms-4 position-fixed">No Internet Connection</div>
       </Offline>
     </>
   )

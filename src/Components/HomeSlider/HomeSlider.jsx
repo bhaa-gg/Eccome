@@ -9,14 +9,18 @@ export default function HomeSlider({ dataCatgorie }) {
         slidesToShow: 5,
         slidesToScroll: 1,
         arrows: false,
-        autoplay  :true,
+        autoplay: true,
     };
-    return (
-        <Slider {...settings}>
-            {dataCatgorie?.data.map((val, id) => {
-                return <img src={val.image } width={30}  key={id} height={200} alt="" />
-            })}
+    try {
+        return (
+            <Slider {...settings}>
+                {dataCatgorie?.data.map((val, id) => {
+                    return <img src={val.image} width={30} key={id} height={200} alt="" />
+                })}
 
-        </Slider>
-    )
+            </Slider>
+        )
+    } catch (error) {
+        console.log(error);
+    }
 }

@@ -7,7 +7,7 @@ import Slider from 'react-slick';
 import Loading from '../Loading/Loading';
 
 export default function ProductDetails() {
-    let { setCounter, addToCart } = useContext(conText);
+    let { setCounter, setIdCart, addToCart } = useContext(conText);
     const [loading, setLoading] = useState(false);
     const [btnLoading, setBtnLoading] = useState(false);
     const [datas, setDates] = useState([])
@@ -29,6 +29,8 @@ export default function ProductDetails() {
             toast.success("Add to cart successfully ")
             setCounter(data.numOfCartItems)
             setBtnLoading(false);
+            setIdCart(data?.data.products.map(val=>val.product))
+
         }
     }
 
